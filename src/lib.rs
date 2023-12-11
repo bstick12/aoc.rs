@@ -41,3 +41,33 @@ pub fn load_sample_data(file_path: &str) -> Result<Vec<String>, Box<dyn std::err
         Err(e) => Err(e.into()),
     }
 }
+
+#[derive(Debug, Hash, Eq, PartialEq, Copy, Clone)]
+pub struct Point {
+    pub x: isize,
+    pub y: isize,
+}
+
+impl Point {
+
+    pub const NORTH: Point = Point::new(0,-1);
+    pub const SOUTH: Point = Point::new(0,1);
+    pub const EAST: Point = Point::new(1,0);
+    pub const WEST: Point = Point::new(-1,0);
+
+    pub const fn new(x: isize, y: isize) -> Point {
+        Point {
+            x: x,
+            y: y,
+        }
+    }
+
+    pub fn add(&self, p: &Point) -> Point {
+        return Point{x:self.x + p.x, y:self.y + p.y};
+    }
+
+    pub fn distance(&self, p: &Point) -> isize {
+        (self.x - p.x).abs() + (self.y - p.y).abs()
+    }
+
+}
